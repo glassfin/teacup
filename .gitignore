@@ -1,0 +1,5 @@
+# the library directory
+lib/*
+
+# swap files
+.*.sw*
