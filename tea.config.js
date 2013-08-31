@@ -4,7 +4,11 @@ requirejs.config({
    baseUrl : 'tea',
 
    paths : {
-      lib : '../lib/min'
+      lib : '../lib/min',
+
+      view : 'view',
+
+      model : 'model'
    },
 
    shim : {
@@ -28,3 +32,11 @@ requirejs.config({
    }
 });
 
+require(
+   ['lib/underscore', 'lib/backbone', 'tea'],
+
+   function( _, Backbone, T )
+   {
+      console.log( T );
+   }
+);

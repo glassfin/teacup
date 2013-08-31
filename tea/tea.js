@@ -2,10 +2,12 @@
  * Entry point to 'T'
  */
 define(
-function( Backbone )
+function( require )
 {
-   return {
-      message : 'test again'
-   };
+   var Tea = window.Tea = {
+      // require
+      autocomplete : require( 'model/autocomplete' )
+   }
 
+   return Tea;
 });
