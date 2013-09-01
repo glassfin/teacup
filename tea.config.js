@@ -37,6 +37,6 @@ require(
 
    function( _, Backbone, T )
    {
-      console.log( T );
+      // do something with tea
    }
 );
