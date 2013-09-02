@@ -53,18 +53,21 @@ require(
             container : $( container ),
 
             type : type 
-         }
+         },
 
-         // get data about the container
-         console.log({
+         cached = {
             height : container.height(),
 
             width : container.width(),
 
             offset : container.offset()
-         });
+         }
+
+         // get data about the container
+         console.log( cached );
 
          // events
+         // resizing
          $(window).resize( function( event )
          {
             console.log({
@@ -75,6 +78,9 @@ require(
                offset : container.offset()
             });
          });
+
+         // content changing
+         // requires a content onchange event
          
          // getters
          this.get = function( value )
@@ -83,6 +89,17 @@ require(
          }
 
          // setters
+         this.set = function( name, value )
+         {
+            // trigger pre-event
+
+            // validate value
+
+            // set value
+            data[ name ] = value;
+
+            // trigger post event
+         }
       }
       
       Scrollbar.prototype = {
