@@ -1,5 +1,6 @@
 # the library directory
-lib/*
+lib/*.js
+lib/min/*
 
 # swap files
 .*.sw*
