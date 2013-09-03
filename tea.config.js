@@ -37,78 +37,126 @@ requirejs.config({
 });
 
 require(
-   ['lib/jquery', 'lib/underscore', 'lib/backbone', 'tea', 'widgets/scrollbar'],
+   [ 'lib/jquery' ],
 
-   function( $, _, Backbone, T, Scrollbar )
+   function( $ )
    {
-      // make a scroll bar for this div 
-      var scrollingContent = 
-         $('.scroll');
-
-      var Scrollbar = function( container, type )
-      {
-         /// init: container
-         // data
-         var data = {
-            container : $( container ),
-
-            type : type 
+      // change stuff around with jQuery
+      // extend the event object       
+      $.T = $.T || {};
+      
+      $.extend($.T, {
+         ContentChangeEvent : function( type, params )
+         {
+            return $.extend( new $.Event( type ), params );
          },
-
-         cached = {
-            height : container.height(),
-
-            width : container.width(),
-
-            offset : container.offset()
+      });
+      
+      /**
+       * Extend jQuery: contentchange
+       */
+      $.fn.contentchange = function( data, handler )
+      {
+         if( handler === undefined )
+         {
+            return $.fn.on.call( this, 'contentchange', data );
          }
 
-         // get data about the container
-         console.log( cached );
-
-         // events
-         // resizing
-         $(window).resize( function( event )
-         {
-            console.log({
-               height : container.height(),
-
-               width : container.width(),
-
-               offset : container.offset()
-            });
-         });
-
-         // content changing
-         // requires a content onchange event
-         
-         // getters
-         this.get = function( value )
-         {
-            return this.data[ value ];
-         }
-
-         // setters
-         this.set = function( name, value )
-         {
-            // trigger pre-event
-
-            // validate value
-
-            // set value
-            data[ name ] = value;
-
-            // trigger post event
-         }
+         return $.fn.on.call( this, 'contentchange', data, handler )
       }
       
-      Scrollbar.prototype = {
-         scroll : function( )
+      // change stuff around with the element
+      // itself
+      //$.event.special['contentchange']
+      $.event.special['contentchange'] = {
+         add : function( handler, data, namespace )
          {
-            //updates the scroll
-         }
-      };
+            /*
+            console.log( {
+               namespace : namespace,
 
-      var scroll = new Scrollbar( scrollingContent );
+               handler : handler,
+
+               data : data
+            } );
+            */
+         },
+
+         remove : function()
+         {
+            
+         }
+      }
+
+      //$('.scroll').on('contentchange', function( event ){});
+      var html = $.fn.html;
+
+      $.fn.html = function( htmlString )
+      {
+         if( htmlString === undefined )
+            return html.call( this );
+
+         return this.each( function( index, element)
+         {
+            var eventObj = 
+               new $.T.ContentChangeEvent( 'contentchange' );
+
+            $.event.trigger( eventObj, undefined, element );
+            html.call( $(element), htmlString );
+         } );
+      }
+
+      $('.scroll')
+      .contentchange( function( event )
+      {
+         console.log( event );
+      });
+
+      $('.scroll').each( function( index, element )
+      {
+         var innerHTMLProp = Object.getOwnPropertyDescriptor( element, 'innerHTML' );
+
+         //console.log( innerHTMLProp );
+         /*Object.defineProperty( obj, 'innerHTML', $.extend( innerHTMLProp,
+         {
+            set 
+         });*/
+         var newInnerHTMLProp = $.extend( innerHTMLProp, 
+         {
+            get : function() { return; },
+
+            set : function( val ) {
+               //console.log( val );
+               innerHTMLProp = Object.getOwnPropertyDescriptor( element, 'innerHTML' );
+
+               var clone = this.cloneNode();
+
+               var parent = this.parentNode;
+
+               console.log( 'hello' );
+
+               clone.innerHTML = val;
+
+               parent.insertBefore( clone, this ); 
+               parent.removeChild( this );
+
+               Object.defineProperty( clone, 'innerHTML', newInnerHTMLProp ); 
+            }
+
+         });
+
+         delete newInnerHTMLProp.writable;
+         delete newInnerHTMLProp.value;
+
+         Object.defineProperty( element, 'innerHTML', newInnerHTMLProp );
+
+      } );
+
+      //$('.scroll').html('hello');
+      var abs = $('.scroll')[0];
+      abs.innerHTML = 'hello';
+
+      // IE
+
    }
 );
