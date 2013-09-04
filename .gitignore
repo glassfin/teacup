@@ -1,6 +1,7 @@
 # the library directory
 lib/*.js
 lib/min/*
+lib/plugin/jquery.mutation-events/*
 
 # swap files
 .*.sw*
