@@ -121,6 +121,14 @@ require(
          {
             set 
          });*/
+
+         var appendChild = element.appendChild;
+
+         element.appendChild = function( html )
+         {
+            console.log( html );
+         }
+
          var newInnerHTMLProp = $.extend( innerHTMLProp, 
          {
             get : function() { return; },
@@ -131,16 +139,23 @@ require(
 
                var clone = this.cloneNode();
 
-               var parent = this.parentNode;
-
-               console.log( 'hello' );
-
                clone.innerHTML = val;
+               console.log( clone.childNodes );
 
-               parent.insertBefore( clone, this ); 
-               parent.removeChild( this );
+               var i = this.childNodes.length;
 
-               Object.defineProperty( clone, 'innerHTML', newInnerHTMLProp ); 
+               var len = clone.childNodes.length;
+
+               while( i = this.childNodes.length > 0 )
+               {
+                  this.removeChild( this.childNodes[ i - 1 ] );
+               }
+
+               while( clone.childNodes.length > 0 )
+               {
+                  appendChild.call( this, clone.childNodes[ 0 ] );
+                  this.appendChild( clone.childNodes[ 0 ] );
+               }
             }
 
          });
@@ -154,7 +169,9 @@ require(
 
       //$('.scroll').html('hello');
       var abs = $('.scroll')[0];
-      abs.innerHTML = 'hello';
+      abs.innerHTML = 'goodbye!<b>hello</b>';
+
+      abs.innerHTML = 'ahhh<p>four score</p><p>and crazy</p>';
 
       // IE
 
