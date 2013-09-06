@@ -44,7 +44,7 @@ require(
       // change stuff around with jQuery
       // extend the event object       
       $.T = $.T || {};
-      
+
       $.extend($.T, {
          ContentChangeEvent : function( type, params )
          {
@@ -172,8 +172,7 @@ require(
       abs.innerHTML = 'goodbye!<b>hello</b>';
 
       abs.innerHTML = 'ahhh<p>four score</p><p>and crazy</p>';
-
       // IE
-
+      // testing, testing 1-2-3
    }
 );
