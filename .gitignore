@@ -1,7 +1,7 @@
 # the library directory
 lib/*.js
 lib/min/*
-lib/plugin/jquery.custom-events/*
+lib/plugin/*
 
 # swap files
 .*.sw*
