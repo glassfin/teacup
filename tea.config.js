@@ -12,7 +12,14 @@ requirejs.config({
 
       model : 'model',
 
-      widget : 'widget'
+      widget : 'widget',
+
+      // jQuery plugins
+      'jquery.custom-events' : 
+         '../lib/plugin/jquery.custom-events/src/customevent',
+
+      'jquery.change-events' :
+         '../lib/plugin/jquery.change-events/src/contentchange'
    },
 
    shim : {
@@ -32,15 +39,25 @@ requirejs.config({
 
       'lib/handlebars' : {
          exports : 'Handlebars'
-      }
+      },
+
+      'jquery.custom-events' : ['lib/jquery'],
+
+      'jquery.change-events' : ['jquery.custom-events']
    }
 });
 
 require(
-   [ 'lib/jquery' ],
+   [ 'lib/jquery', 
+     
+     'jquery.custom-events',
+
+     'jquery.change-events'
+   ],
 
    function( $ )
    {
+      /*
       // change stuff around with jQuery
       // extend the event object       
       $.T = $.T || {};
@@ -52,9 +69,7 @@ require(
          },
       });
       
-      /**
-       * Extend jQuery: contentchange
-       */
+      //
       $.fn.contentchange = function( data, handler )
       {
          if( handler === undefined )
@@ -71,7 +86,6 @@ require(
       $.event.special['contentchange'] = {
          add : function( handler, data, namespace )
          {
-            /*
             console.log( {
                namespace : namespace,
 
@@ -79,7 +93,6 @@ require(
 
                data : data
             } );
-            */
          },
 
          remove : function()
@@ -117,10 +130,10 @@ require(
          var innerHTMLProp = Object.getOwnPropertyDescriptor( element, 'innerHTML' );
 
          //console.log( innerHTMLProp );
-         /*Object.defineProperty( obj, 'innerHTML', $.extend( innerHTMLProp,
+         Object.defineProperty( obj, 'innerHTML', $.extend( innerHTMLProp,
          {
             set 
-         });*/
+         });
 
          var appendChild = element.appendChild;
 
@@ -174,5 +187,6 @@ require(
       abs.innerHTML = 'ahhh<p>four score</p><p>and crazy</p>';
       // IE
       // testing, testing 1-2-3
+      */
    }
 );
