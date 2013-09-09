@@ -24,16 +24,16 @@
    <input type='text' max='100' min='0' />
    <label class='subtext'>Tell us how many lines.</label>
 </fieldset>
-
+</form>
+<script type='template' id='tea-slider-template'>
 <div class='slider-container'>
-   <label>How many lines of code</label>
-   <span class='min-label'>0</span>
-   <span class='max-label'>100</span>
+   <label>{{label}}</label>
+   <span class='min-label'>{{min}}</span>
+   <span class='max-label'>{{max}}</span>
    <div class='slider-bar'></div>
    <div class='slider-tick'></div>
-   <div class='value-label'>10</div>
+   <div class='value-label'>{{value}}</div>
 </div>
-
-</form>
+</script>
 </body>
 </html>
