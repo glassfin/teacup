@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>
+   </title>
+   <link rel='stylesheet' type='text/css' href='css/slider.css' />
+   <script type='text/javascript' src='../../lib/jquery.min.js'>
+   </script>
+   
+   <script type='text/javascript' src='../../lib/underscore.min.js'>
+   </script>
+   <script type='text/javascript' src='../../lib/backbone.js'>
+   </script>
+
+   <script type='text/javascript' src='../../lib/handlebars.js'>
+   </script> 
+
+   <script type='text/javascript' src='js/slider.js'></script>
+</head>
+<body>
+<form>
+<fieldset type='slider'>
+   <label class='title'>How many lines of code</label>
+   <input type='text' max='100' min='0' />
+   <label class='subtext'>Tell us how many lines.</label>
+</fieldset>
+
+<div class='slider-container'>
+   <label>How many lines of code</label>
+   <span class='min-label'>0</span>
+   <span class='max-label'>100</span>
+   <div class='slider-bar'></div>
+   <div class='slider-tick'></div>
+   <div class='value-label'>10</div>
+</div>
+
+</form>
+</body>
+</html>
